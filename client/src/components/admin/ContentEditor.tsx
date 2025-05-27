@@ -160,7 +160,7 @@ function AboutEditor({ section, mediaFiles, onSave, isLoading }: SectionEditorPr
                 <SelectValue placeholder="Select an uploaded image" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">No image</SelectItem>
+                <SelectItem value="none">No image</SelectItem>
                 {mediaFiles?.filter(file => file.mimeType?.startsWith('image/')).map(file => (
                   <SelectItem key={file.id} value={file.url}>
                     {file.originalName}
