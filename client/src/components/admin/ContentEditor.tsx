@@ -9,7 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Save } from "lucide-react";
+import { Save, Plus, Edit, Trash2, Star } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import type { ContentSection, MediaFile } from "@shared/schema";
 
 export default function ContentEditor() {
@@ -266,8 +267,9 @@ function HeroEditor({ section, mediaFiles, onSave, isLoading }: SectionEditorPro
 function SkillsEditor() {
   const [isCreateMode, setIsCreateMode] = useState(false);
   const [editingSkill, setEditingSkill] = useState<any>(null);
+  const { toast } = useToast();
 
-  const { data: skills = [], isLoading } = useQuery({
+  const { data: skills = [], isLoading } = useQuery<any[]>({
     queryKey: ["/api/skills"],
   });
 
