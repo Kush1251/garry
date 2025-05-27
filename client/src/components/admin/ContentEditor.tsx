@@ -79,6 +79,7 @@ export default function ContentEditor() {
         <TabsContent value="hero">
           <HeroEditor 
             section={getContentSection("hero")}
+            mediaFiles={mediaFiles || []}
             onSave={(data) => handleSave("hero", data)}
             isLoading={updateMutation.isPending}
           />
