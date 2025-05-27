@@ -334,7 +334,7 @@ function PortfolioItemForm({ item, mediaFiles, onSave, isLoading }: PortfolioIte
           ))}
         </div>
         <p className="text-sm text-gray-400 mt-2">
-          Selected: {formData.selectedImages.length} images. Click images to add/remove from gallery.
+          Selected: {formData.mediaFileIds.length} images. Click images to add/remove from gallery.
         </p>
       </div>
 
