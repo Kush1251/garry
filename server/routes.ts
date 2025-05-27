@@ -2,7 +2,7 @@ import type { Express } from "express";
 import express from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { setupAuth, isAuthenticated } from "./replitAuth";
+import { setupAuth, isAuthenticated, getCurrentUser } from "./simpleAuth";
 import multer from "multer";
 import path from "path";
 import { promises as fs } from "fs";
@@ -53,8 +53,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Auth routes
   app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
-      const user = await storage.getUser(userId);
+      const user = getCurrentUser(req);
       res.json(user);
     } catch (error) {
       console.error("Error fetching user:", error);
@@ -65,8 +64,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Dashboard stats
   app.get('/api/dashboard/stats', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
-      const stats = await storage.getDashboardStats(userId);
+      const user = getCurrentUser(req);
+      const stats = await storage.getDashboardStats(user.id);
       res.json(stats);
     } catch (error) {
       console.error("Error fetching dashboard stats:", error);
@@ -77,7 +76,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Media file routes
   app.post('/api/media', isAuthenticated, upload.single('file'), async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const user = getCurrentUser(req);
+      const userId = user.id;
       const file = req.file;
       
       console.log('Upload request:', { hasFile: !!file, body: req.body, files: req.files });
@@ -114,7 +114,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/media', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const user = getCurrentUser(req);
+      const userId = user.id;
       const mediaFiles = await storage.getMediaFiles(userId);
       res.json(mediaFiles);
     } catch (error) {
@@ -150,7 +151,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Content section routes
   app.get('/api/content', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const user = getCurrentUser(req);
+      const userId = user.id;
       const contentSections = await storage.getContentSections(userId);
       res.json(contentSections);
     } catch (error) {
@@ -173,7 +175,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.put('/api/content/:key', isAuthenticated, async (req: any, res) => {
     try {
       const key = req.params.key;
-      const userId = req.user.claims.sub;
+      const user = getCurrentUser(req);
+      const userId = user.id;
       const validatedData = insertContentSectionSchema.parse({
         ...req.body,
         userId,
@@ -198,7 +201,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Skills routes
   app.get('/api/skills', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const user = getCurrentUser(req);
+      const userId = user.id;
       const skills = await storage.getSkills(userId);
       res.json(skills);
     } catch (error) {
@@ -209,7 +213,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post('/api/skills', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const user = getCurrentUser(req);
+      const userId = user.id;
       const validatedData = insertSkillSchema.parse({
         ...req.body,
         userId,
@@ -250,7 +255,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Portfolio routes
   app.get('/api/portfolio', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const user = getCurrentUser(req);
+      const userId = user.id;
       const portfolioItems = await storage.getPortfolioItems(userId);
       res.json(portfolioItems);
     } catch (error) {
@@ -261,7 +267,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post('/api/portfolio', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const user = getCurrentUser(req);
+      const userId = user.id;
       const validatedData = insertPortfolioItemSchema.parse({
         ...req.body,
         userId,
@@ -302,7 +309,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Video routes
   app.get('/api/videos', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const user = getCurrentUser(req);
+      const userId = user.id;
       const videos = await storage.getVideos(userId);
       res.json(videos);
     } catch (error) {
@@ -313,7 +321,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post('/api/videos', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const user = getCurrentUser(req);
+      const userId = user.id;
       const validatedData = insertVideoSchema.parse({
         ...req.body,
         userId,
