@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Dark theme matching the design */
+  --background: 240 10% 6%; /* #0f0f0f */
+  --foreground: 0 0% 100%; /* #ffffff */
+  --muted: 240 3.7% 15.9%; /* #1a1a1a */
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 6%;
+  --popover-foreground: 0 0% 100%;
+  --card: 240 10% 6%;
+  --card-foreground: 0 0% 100%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --primary: 15 100% 61%; /* #ff6b35 */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 34 100% 54%; /* #f7931e */
+  --secondary-foreground: 0 0% 100%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 100%;
+  --ring: 15 100% 61%;
+  --radius: 0.5rem;
+  
+  /* Custom variables for glass effect */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 107, 53, 0.3);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .gradient-primary {
+    background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
+  }
+
+  .sidebar-active {
+    transform: translateX(0);
+  }
+
+  .drag-over {
+    border-color: hsl(var(--primary));
+    background: rgba(255, 107, 53, 0.1);
+  }
+
+  .editor-toolbar {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--secondary));
+}
