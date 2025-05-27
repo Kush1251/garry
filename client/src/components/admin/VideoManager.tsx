@@ -401,7 +401,7 @@ function VideoForm({ video, mediaFiles, onSave, isLoading }: VideoFormProps) {
             <SelectValue placeholder="Select a thumbnail image" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">No thumbnail</SelectItem>
+            <SelectItem value="none">No thumbnail</SelectItem>
             {imageFiles.map(file => (
               <SelectItem key={file.id} value={file.id.toString()}>
                 {file.originalName}
