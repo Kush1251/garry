@@ -70,13 +70,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const userId = req.user.claims.sub;
       const file = req.file;
       
+      console.log('Upload request:', { hasFile: !!file, body: req.body, files: req.files });
+      
       if (!file) {
         return res.status(400).json({ message: "No file uploaded" });
       }
 
+      // Ensure uploads directory exists
+      const uploadsDir = path.join(process.cwd(), 'uploads');
+      await fs.mkdir(uploadsDir, { recursive: true });
+
       // Move file to permanent location (in production, you'd use cloud storage)
       const filename = `${Date.now()}-${file.originalname}`;
-      const filepath = path.join('uploads', filename);
+      const filepath = path.join(uploadsDir, filename);
       await fs.rename(file.path, filepath);
 
       const mediaFile = await storage.createMediaFile({
