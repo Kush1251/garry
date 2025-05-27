@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for SEO, social sharing, and browser compatibility -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Garry Bell - Professional Fighter and Stunt Performer specializing in authentic combat choreography and high-impact stunts.">
+    <meta name="keywords" content="stunt performer, fighter, action specialist, fight choreography, martial arts">
+    <meta name="author" content="Garry Bell">
+    <!-- Open Graph meta tags for social media sharing -->
+    <meta property="og:title" content="Garry Bell - Fighter & Stunt Performer">
+    <meta property="og:description" content="Professional fighter turned stunt performer bringing authentic combat to film.">
+    <meta property="og:image" content="https://minio.kushs.uk/garry-bell/image1.jpg">
+    <meta property="og:url" content="https://garrybell.uk">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- Favicon and preloaded image for faster loading -->
+    <link rel="icon" href="path/to/favicon.ico" type="image/x-icon">
+    <link rel="preload" href="https://client.robben.uk/index.php/apps/files_sharing/publicpreview/PR3ES3SNNR5Q48r?file=/&fileId=819765&x=5120&y=2880&a=true&etag=607ef36ee2772eef23a7cd6a6ad7e4c6" as="image">
+    <!-- Google Fonts for Poppins font family -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100..900&display=swap">
+    <title>Garry Bell - Fighter & Stunt Performer</title>
+    <style>
+        /* Reset default margins, padding, and box-sizing for all elements */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Base styles for the body, including font, background gradient, text color, and scroll behavior */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Skip to Content Link Styles */
+        /* Hidden by default, visible on focus for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 1rem;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            z-index: 3000;
+            transition: top 0.3s ease;
+        }
+
+        /* Show the link when focused (e.g., via keyboard navigation) */
+        .skip-link:focus {
+            top: 1rem;
+        }
+
+        /* Navigation Styles */
+        /* Fixed navigation bar with a blurred background effect */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Container for navigation items, aligning logo and menu */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Logo styling with a bold font and orange color */
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #ff6b35;
+        }
+
+        /* Navigation menu styling for desktop view */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        /* Individual navigation links with hover effects */
+        .nav-menu a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        /* Hover effect for nav links with a gradient background and slight lift */
+        .nav-menu a:hover {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            transform: translateY(-2px);
+        }
+
+        /* Hamburger menu for mobile view (hidden on desktop) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Styling for hamburger menu lines */
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #ff6b35;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        /* Animation for hamburger menu when active (X shape) */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Hero Section Styles */
+        /* Full-screen hero section with a background image */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background: url('https://minio.kushs.uk/garry-bell/Final%20Other%20Shots%2F20250523-110516582%E2%80%AFAM.jpg') no-repeat center center/cover;
+        }
+
+        /* Dark overlay for hero section to improve text readability */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        /* Content inside the hero section */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 1rem;
+        }
+
+        /* Main heading in the hero section with responsive font size and shadow */
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            animation: slideInDown 1s ease-out;
+        }
+
+        /* Subtitle in the hero section with orange color */
+        .hero-content .subtitle {
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            color: #ff6b35;
+            margin-bottom: 2rem;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        /* Call-to-action button in the hero section with gradient background */
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease-out 0.6s both;
+            position: relative;
+            overflow: hidden;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        }
+
+        /* Hover effect for the CTA button with a lift and shadow */
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        /* General Section Styles */
+        /* Base styling for all sections with padding and max-width */
+        section {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Section heading styles with an underline effect */
+        h2 {
+            font-size: clamp(2rem, 6vw, 2.5rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #ff6b35;
+            position: relative;
+        }
+
+        /* Underline effect for section headings */
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+        }
+
+        /* About Section Styles */
+        /* Grid layout for the about section content */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Profile image container in the about section */
+        .profile-image {
+            order: 1;
+            justify-self: center;
+        }
+
+        /* Styling for the profile image with a hover effect */
+        .profile-image img {
+            width: min(300px, 80vw);
+            height: auto;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hover effect for the profile image */
+        .profile-image img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Text content in the about section */
+        .about-text {
+            order: 2;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Paragraph spacing in the about text */
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Skills Section Styles */
+        /* Grid layout for the skills section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Styling for individual skill cards with a glassmorphism effect */
+        .skill-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect for skill cards with a lift and color change */
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4), -8px -8px 20px rgba(255, 255, 255, 0.15);
+            background: rgba(255, 107, 53, 0.1);
+        }
+
+        /* Skill card heading styling */
+        .skill-card h3 {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            margin: 1rem 0 0.5rem 0;
+            color: #ff6b35;
+        }
+
+        /* Skill card description styling */
+        .skill-card p {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            line-height: 1.6;
+        }
+
+        /* Circular progress indicator for skills */
+        .progress-circle {
+            width: clamp(80px, 20vw, 100px);
+            height: clamp(80px, 20vw, 100px);
+            margin: 0 auto 1rem;
+            background: conic-gradient(#ff6b35 0% 80%, rgba(255, 255, 255, 0.1) 80% 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Inner circle for the progress indicator with percentage text */
+        .progress-circle::before {
+            content: '80%';
+            position: absolute;
+            width: calc(100% - 20px);
+            height: calc(100% - 20px);
+            background: #1a1a1a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #ff6b35;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+        }
+
+        /* Video Reel Section Styles */
+        /* Container for the video with responsive sizing */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 15px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Video element styling to fit within the container */
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            object-fit: cover;
+        }
+
+        /* Fallback image styling if video fails to load */
+        .video-container .fallback-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        /* Experience Timeline Styles */
+        /* Timeline container with a vertical line on the left */
+        .timeline {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        /* Vertical line for the timeline with a gradient */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #ff6b35, #f7931e);
+        }
+
+        /* Individual timeline items with animation setup */
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.6s ease;
+        }
+
+        /* Circle marker for each timeline item */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.3rem;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #ff6b35;
+            border-radius: 50%;
+            border: 3px solid #1a1a1a;
+        }
+
+        /* Content container for each timeline item */
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Timeline item heading */
+        .timeline-content h3 {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            margin-bottom: 0.5rem;
+            color: #ff6b35;
+        }
+
+        /* Date styling for timeline items */
+        .timeline-date {
+            color: #ff6b35;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        /* Description text for timeline items */
+        .timeline-content p {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            line-height: 1.6;
+        }
+
+        /* Testimonials Section Styles */
+        /* Grid layout for testimonials, similar to skills section */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Styling for individual testimonial cards */
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect for testimonial cards */
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4), -8px -8px 20px rgba(255, 255, 255, 0.15);
+            background: rgba(255, 107, 53, 0.1);
+        }
+
+        /* Testimonial quote styling */
+        .testimonial-card p {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        /* Testimonial author styling */
+        .testimonial-card h4 {
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            color: #ff6b35;
+            font-weight: 600;
+        }
+
+        /* Projects Section Styles */
+        /* Grid layout for project cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Styling for individual project cards */
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect for project cards */
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4), -8px -8px 20px rgba(255, 255, 255, 0.15);
+            background: rgba(255, 107, 53, 0.1);
+        }
+
+        /* Project title styling */
+        .project-card h3 {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            color: #ff6b35;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Project role and description styling */
+        .project-card p {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            line-height: 1.6;
+        }
+
+        /* Gallery Section Styles */
+        /* Specific padding and max-width for the gallery section */
+        #gallery {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Grid layout for gallery items */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+            gap: 1rem;
+        }
+
+        /* Styling for individual gallery items with a hover effect */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+            aspect-ratio: 4/3;
+        }
+
+        /* Gallery item image styling with a zoom effect on hover */
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        /* Zoom effect for gallery images on hover */
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Lightbox Styles for Gallery */
+        /* Lightbox overlay for viewing full-size images */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        /* Active state for the lightbox (visible) */
+        .lightbox.active {
+            display: flex;
+        }
+
+        /* Styling for the lightbox image */
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
+            object-fit: contain;
+        }
+
+        /* Lightbox control buttons (close, previous, next) */
+        .lightbox-close,
+        .lightbox-prev,
+        .lightbox-next {
+            position: absolute;
+            color: #ff6b35;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: clamp(40px, 10vw, 50px);
+            height: clamp(40px, 10vw, 50px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+        }
+
+        /* Positioning for the close button in the lightbox */
+        .lightbox-close {
+            top: 1rem;
+            right: 1rem;
+        }
+
+        /* Positioning for the previous button in the lightbox */
+        .lightbox-prev {
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Positioning for the next button in the lightbox */
+        .lightbox-next {
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Hover effects for lightbox control buttons */
+        .lightbox-close:hover,
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            background: #ff6b35;
+            color: #fff;
+        }
+
+        /* Contact Section Styles */
+        /* Container for the contact form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Styling for form groups (input/textarea containers) */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Styling for form inputs and textarea */
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Placeholder text styling for form inputs */
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Submit button styling with gradient background */
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        /* Hover effect for the submit button */
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Ripple Effect for Buttons */
+        /* Ripple animation for button clicks */
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: rippleEffect 0.6s linear;
+            pointer-events: none;
+        }
+
+        /* Keyframes for the ripple animation */
+        @keyframes rippleEffect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Footer Styles */
+        /* Footer styling with a dark background and border */
+        footer {
+            background: #000;
+            text-align: center;
+            padding: 2rem 1rem;
+            border-top: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        /* Footer text styling with responsive font size */
+        footer p {
+            font-size: clamp(0.8rem, 2vw, 1rem);
+        }
+
+        /* Social Links Styles */
+        /* Container for social media links in the footer */
+        .social-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        /* Styling for social media icons */
+        .social-links a {
+            color: #ff6b35;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect for social media icons */
+        .social-links a:hover {
+            color: #f7931e;
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        /* Slide-in animation for elements coming from the top */
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Slide-in animation for elements coming from the bottom */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Fade-in animation for elements */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Media Queries for Responsive Design */
+        /* Mobile-specific styles for screens up to 768px */
+        @media (max-width: 768px) {
+            /* Navigation menu becomes a full-screen overlay on mobile */
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.95);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+                gap: 0;
+            }
+
+            /* Spacing for mobile navigation menu items */
+            .nav-menu li {
+                margin: 0.5rem 0;
+            }
+
+            /* Show navigation menu when active on mobile */
+            .nav-menu.active {
+                left: 0;
+            }
+
+            /* Display hamburger menu on mobile */
+            .hamburger {
+                display: flex;
+            }
+
+            /* Stack about section content vertically on mobile */
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            /* Ensure profile image is above text on mobile */
+            .profile-image {
+                order: 1;
+            }
+
+            /* Ensure about text is below image on mobile */
+            .about-text {
+                order: 2;
+            }
+
+            /* Adjust timeline padding for mobile */
+            .timeline {
+                padding-left: 1rem;
+            }
+
+            /* Adjust timeline item padding for mobile */
+            .timeline-item {
+                padding-left: 1rem;
+            }
+
+            /* Adjust timeline marker position for mobile */
+            .timeline-item::before {
+                left: -1rem;
+            }
+
+            /* Reduce section padding on mobile */
+            section {
+                padding: 3rem 1rem;
+            }
+
+            /* Reposition lightbox navigation buttons for mobile */
+            .lightbox-prev,
+            .lightbox-next {
+                bottom: 2rem;
+                top: auto;
+                transform: none;
+            }
+
+            /* Position previous button on mobile */
+            .lightbox-prev {
+                left: 2rem;
+            }
+
+            /* Position next button on mobile */
+            .lightbox-next {
+                right: 2rem;
+            }
+
+            /* Adjust video container aspect ratio for mobile */
+            .video-container {
+                padding-bottom: 75%; /* Adjust aspect ratio for mobile if needed */
+            }
+        }
+
+        /* Desktop-specific styles for screens above 768px */
+        @media (min-width: 769px) {
+            /* Two-column layout for about section on desktop */
+            .about-content {
+                grid-template-columns: 1fr 2fr;
+                text-align: left;
+            }
+
+            /* Ensure profile image is on the left on desktop */
+            .profile-image {
+                order: 0;
+                justify-self: start;
+            }
+
+            /* Ensure about text is on the right on desktop */
+            .about-text {
+                order: 0;
+            }
+        }
+
+        /* Touch Device Optimizations */
+        /* Disable hover effects on touch devices */
+        @media (hover: none) and (pointer: coarse) {
+            .skill-card:hover,
+            .gallery-item:hover img,
+            .profile-image img:hover {
+                transform: none;
+            }
+
+            .cta-button:hover,
+            .submit-btn:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+            .nav-menu a:hover {
+                transform: none;
+            }
+
+            .testimonial-card:hover,
+            .project-card:hover {
+                transform: none;
+            }
+
+            .social-links a:hover {
+                transform: none;
+            }
+        }
+
+        /* High DPI Display Optimizations */
+        /* Prevent background scrolling issues on high-DPI screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .hero {
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to Content Link for Accessibility -->
+    <!-- Allows keyboard users to skip navigation and go directly to main content -->
+    <a href="#home" class="skip-link">Skip to Content</a>
+
+    <!-- Navigation Section -->
+    <!-- Fixed navigation bar with logo, menu, and hamburger for mobile -->
+    <nav aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="logo">Garry Bell</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#reel">Reel</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <!-- Full-screen section with background image, title, subtitle, and CTA button -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Garry Bell</h1>
+            <p class="subtitle">Fighter • Stunt Performer • Action Specialist</p>
+            <a href="#contact" class="cta-button">Hire Me</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <!-- Section with profile image and text about Garry Bell -->
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="profile-image">
+                <img src="https://minio.kushs.uk/garry-bell/image1.jpg" alt="Garry Bell Profile Photo" loading="lazy">
+            </div>
+            <div class="about-text">
+                <p>From the ring to the movie set, I've dedicated my life to mastering the art of combat and bringing authentic action to the screen. With years of professional fighting experience, I've transitioned into the world of stunt performance, bringing real skills and intensity to every project.</p>
+                <p>My background in competitive fighting gives me a unique edge in choreographing and performing realistic fight sequences. I understand the psychology of combat, the mechanics of movement, and the art of making every punch, kick, and takedown look authentic while keeping everyone safe.</p>
+                <p>Whether it's hand-to-hand combat, weapon choreography, or high-impact stunts, I bring professionalism, safety, and years of real-world experience to every production.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <!-- Section displaying combat and stunt skills in a grid layout -->
+    <section id="skills">
+        <h2>Combat & Stunt Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="progress-circle" aria-label="Boxing proficiency 90%"></div>
+                <h3>Boxing & Striking</h3>
+                <p>Professional boxing technique with authentic punch combinations and defensive movements.</p>
+            </div>
+            <div class="skill-card">
+                <div class="progress-circle" aria-label="Martial Arts proficiency 80%"></div>
+                <h3>Martial Arts</h3>
+                <p>Multiple disciplines including karate, muay thai, and mixed martial arts fundamentals.</p>
+            </div>
+            <div class="skill-card">
+                <div class="progress-circle" aria-label="Weapon Combat proficiency 80%"></div>
+                <h3>Weapon Combat</h3>
+                <p>Choreographed weapon fighting including swords, knives, and improvised weapons.</p>
+            </div>
+            <div class="skill-card">
+                <div class="progress-circle" aria-label="Fight Choreography proficiency 80%"></div>
+                <h3>Fight Choreography</h3>
+                <p>Creating and executing complex fight sequences that look real while maintaining safety.</p>
+            </div>
+            <div class="skill-card">
+                <div class="progress-circle" aria-label="Physical Stunts proficiency 80%"></div>
+                <h3>Physical Stunts</h3>
+                <p>High falls, parkour, chase sequences, and athletic performance work.</p>
+            </div>
+            <div class="skill-card">
+                <div class="progress-circle" aria-label="Acting proficiency 80%"></div>
+                <h3>Acting & Performance</h3>
+                <p>Bringing character and emotion to action sequences beyond just the physical movements.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Reel Section -->
+    <!-- Section to showcase a video reel of Garry's stunt work from MinIO -->
+    <section id="reel">
+        <h2>Highlight Reel</h2>
+        <div class="video-container">
+            <video controls preload="metadata" poster="https://minio.kushs.uk/garry-bell/image1.jpg">
+                <source src="https://minio.kushs.uk/garry-bell/video1.mp4" type="video/mp4">
+                <img src="https://minio.kushs.uk/garry-bell/image1.jpg" alt="Fallback image for video" class="fallback-image">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <!-- Timeline of Garry Bell's career milestones -->
+    <section id="experience">
+        <h2>Career Timeline</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2020 - Present</div>
+                    <h3>Professional Stunt Performer</h3>
+                    <p>Transitioned from competitive fighting to movie stunts, working on independent films and building a reputation for authentic combat scenes.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2015 - 2020</div>
+                    <h3>Professional Fighter</h3>
+                    <p>Competed professionally in [your fighting discipline], developing the combat skills and mental toughness that now inform my stunt work.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2010 - 2015</div>
+                    <h3>Combat Training & Development</h3>
+                    <p>Intensive training period, learning multiple fighting disciplines and developing the foundation for professional competition.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <!-- Section to display testimonials from clients or colleagues -->
+    <section id="testimonials">
+        <h2>What People Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p>"Garry brought incredible energy and realism to our fight scenes. His professionalism and skill made every shot look flawless!"</p>
+                <h4>Jane Doe, Director of 'Action Unleashed'</h4>
+            </div>
+            <div class="testimonial-card">
+                <p>"Working with Garry was a game-changer. His understanding of combat dynamics elevated our film to the next level."</p>
+                <h4>John Smith, Stunt Coordinator</h4>
+            </div>
+            <div class="testimonial-card">
+                <p>"Garry's dedication to safety and authenticity is unmatched. I’d hire him again in a heartbeat!"</p>
+                <h4>Emily Brown, Producer</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <!-- Section to list specific projects or film credits -->
+    <section id="projects">
+        <h2>Selected Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Action Unleashed (2024)</h3>
+                <p>Lead Stunt Performer</p>
+                <p>Performed high-intensity fight sequences and chase scenes for this blockbuster action film.</p>
+            </div>
+            <div class="project-card">
+                <h3>The Final Strike (2023)</h3>
+                <p>Fight Choreographer</p>
+                <p>Designed and executed complex martial arts sequences for the film’s climactic battle.</p>
+            </div>
+            <div class="project-card">
+                <h3>Urban Pursuit (2022)</h3>
+                <p>Stunt Double</p>
+                <p>Acted as the stunt double for the lead actor, performing high falls and parkour stunts.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <!-- Photo gallery with clickable images and lightbox functionality -->
+    <section id="gallery">
+        <h2>Photo Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" role="button" tabindex="0" aria-label="View stunt performance photo 1">
+                <img src="https://minio.kushs.uk/garry-bell/image2.jpg" alt="Stunt performance photo 1" loading="lazy">
+            </div>
+            <div class="gallery-item" role="button" tabindex="0" aria-label="View stunt performance photo 2">
+                <img src="https://minio.kushs.uk/garry-bell/image5.JPG" alt="Stunt performance photo 2" loading="lazy">
+            </div>
+            <div class="gallery-item" role="button" tabindex="0" aria-label="View stunt performance photo 3">
+                <img src="https://minio.kushs.uk/garry-bell/image7.JPG" alt="Stunt performance photo 3" loading="lazy">
+            </div>
+            <div class="gallery-item" role="button" tabindex="0" aria-label="View stunt performance photo 4">
+                <img src="https://minio.kushs.uk/garry-bell/image4.JPG" alt="Stunt performance photo 4" loading="lazy">
+            </div>
+        </div>
+        <div class="lightbox" role="dialog" aria-label="Image lightbox">
+            <span class="lightbox-close" aria-label="Close lightbox">×</span>
+            <span class="lightbox-prev" aria-label="Previous image">◄</span>
+            <span class="lightbox-next" aria-label="Next image">►</span>
+            <img class="lightbox-img" src="" alt="Selected gallery image">
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <!-- Contact form for users to get in touch with Garry Bell -->
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-form">
+            <form id="contact-form" aria-label="Contact form">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Your Name" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Your Email" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="project-type" placeholder="Project Type">
+                </div>
+                <div class="form-group">
+                    <textarea id="message" rows="5" placeholder="Tell me about your project..." required aria-required="true"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <!-- Footer with copyright information and social media links -->
+    <footer>
+        <p>© 2025 Garry Bell. Professional Fighter & Stunt Performer.</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/garrybell" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <span class="social-icon">📸</span>
+            </a>
+            <a href="https://www.imdb.com/name/nmXXXXXXX" target="_blank" rel="noopener noreferrer" aria-label="IMDb">
+                <span class="social-icon">🎬</span>
+            </a>
+            <a href="https://www.linkedin.com/in/garrybell" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <span class="social-icon">💼</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- JavaScript Section -->
+    <script>
+        // Mobile Menu Toggle
+        // Toggles the mobile menu visibility when the hamburger icon is clicked
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close Mobile Menu on Link Click
+        // Closes the mobile menu when a navigation link is clicked
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth Scrolling for Navigation Links
+        // Enables smooth scrolling to sections when clicking navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const targetPosition = target.offsetTop - navHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Navbar Background on Scroll
+        // Changes the navbar background opacity based on scroll position
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                nav.style.background = 'rgba(0, 0, 0, 0.9)';
+            }
+        });
+
+        // Scroll Animation for Timeline, Skills, and Gallery
+        // Animates elements into view as they enter the viewport
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateX(0)';
+                    }, index * 200);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item, .skill-card, .gallery-item, .testimonial-card, .project-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateX(50px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Ripple Effect for Buttons
+        // Creates a ripple animation on button clicks
+        function createRipple(event, element) {
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            const rect = element.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${event.clientX - rect.left - size / 2}px`;
+            ripple.style.top = `${event.clientY - rect.top - size / 2}px`;
+            element.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        }
+
+        // Apply ripple effect to buttons and navigation links
+        document.querySelectorAll('.cta-button, .submit-btn, .nav-menu a').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                createRipple(e, this);
+            });
+        });
+
+        // Form Submission with Validation
+        // Validates the contact form and shows a success message
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (!name || !email || !message) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            alert('Thank you for your message! I\'ll get back to you soon.');
+            this.reset();
+        });
+
+        // Lightbox Functionality for Gallery
+        // Handles the lightbox for viewing full-size gallery images
+        const lightbox = document.querySelector('.lightbox');
+        const lightboxImg = document.querySelector('.lightbox-img');
+        const lightboxClose = document.querySelector('.lightbox-close');
+        const lightboxPrev = document.querySelector('.lightbox-prev');
+        const lightboxNext = document.querySelector('.lightbox-next');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        let currentIndex = 0;
+
+        const images = Array.from(galleryItems).map(item => ({
+            src: item.querySelector('img').src,
+            alt: item.querySelector('img').alt
+        }));
+
+        // Open the lightbox with the selected image
+        function openLightbox(index) {
+            currentIndex = index;
+            lightboxImg.src = images[index].src;
+            lightboxImg.alt = images[index].alt;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            lightbox.focus();
+        }
+
+        // Close the lightbox
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Show the previous image in the lightbox
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            lightboxImg.src = images[currentIndex].src;
+            lightboxImg.alt = images[currentIndex].alt;
+        }
+
+        // Show the next image in the lightbox
+        function showNext() {
+            currentIndex = (currentIndex + 1) % images.length;
+            lightboxImg.src = images[currentIndex].src;
+            lightboxImg.alt = images[currentIndex].alt;
+        }
+
+        // Add click and keyboard events to gallery items to open the lightbox
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => openLightbox(index));
+            item.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openLightbox(index);
+                }
+            });
+        });
+
+        // Lightbox control event listeners
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', showPrev);
+        lightboxNext.addEventListener('click', showNext);
+
+        // Keyboard navigation for the lightbox
+        lightbox.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') showPrev();
+            if (e.key === 'ArrowRight') showNext();
+        });
+
+        // Close the lightbox when clicking outside the image
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Touch/Swipe Support for Lightbox
+        // Adds swipe gestures to navigate images in the lightbox on touch devices
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        lightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const swipeDistance = touchStartX - touchEndX;
+            
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+                if (swipeDistance > 0) {
+                    showNext(); // Swipe left = next image
+                } else {
+                    showPrev(); // Swipe right = previous image
+                }
+            }
+        }
+
+        // Prevent Zoom on Double Tap for iOS
+        // Disables double-tap zoom on iOS devices
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // Performance Optimization: Lazy Load Images
+        // Lazy loads images when they enter the viewport
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                        }
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Optimize Scroll Performance
+        // Throttles scroll events to improve performance
+        let ticking = false;
+        function updateOnScroll() {
+            // Navbar background update
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                nav.style.background = 'rgba(0, 0, 0, 0.9)';
+            }
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateOnScroll);
+                ticking = true;
+            }
+        });
+
+        // Close Mobile Menu on Resize
+        // Ensures the mobile menu closes when switching to desktop view
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
