@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Save } from "lucide-react";
-import type { ContentSection } from "@shared/schema";
+import type { ContentSection, MediaFile } from "@shared/schema";
 
 export default function ContentEditor() {
   const [activeTab, setActiveTab] = useState("about");
@@ -17,6 +18,10 @@ export default function ContentEditor() {
 
   const { data: contentSections } = useQuery<ContentSection[]>({
     queryKey: ["/api/content"],
+  });
+
+  const { data: mediaFiles } = useQuery<MediaFile[]>({
+    queryKey: ["/api/media"],
   });
 
   const updateMutation = useMutation({
@@ -65,6 +70,7 @@ export default function ContentEditor() {
         <TabsContent value="about">
           <AboutEditor 
             section={getContentSection("about")}
+            mediaFiles={mediaFiles || []}
             onSave={(data) => handleSave("about", data)}
             isLoading={updateMutation.isPending}
           />
@@ -96,11 +102,12 @@ export default function ContentEditor() {
 
 interface SectionEditorProps {
   section?: ContentSection;
+  mediaFiles?: MediaFile[];
   onSave: (data: any) => void;
   isLoading: boolean;
 }
 
-function AboutEditor({ section, onSave, isLoading }: SectionEditorProps) {
+function AboutEditor({ section, mediaFiles, onSave, isLoading }: SectionEditorProps) {
   const [formData, setFormData] = useState({
     title: section?.title || "About Me",
     content: section?.content || "",
@@ -144,14 +151,23 @@ function AboutEditor({ section, onSave, isLoading }: SectionEditorProps) {
           </div>
 
           <div>
-            <Label htmlFor="profile-image" className="text-white">Profile Image URL</Label>
-            <Input
-              id="profile-image"
-              value={formData.profileImageUrl}
-              onChange={(e) => setFormData({ ...formData, profileImageUrl: e.target.value })}
-              className="glass-effect border-white/20 text-white"
-              placeholder="https://example.com/profile-image.jpg"
-            />
+            <Label htmlFor="profile-image" className="text-white">Profile Image</Label>
+            <Select 
+              value={formData.profileImageUrl} 
+              onValueChange={(value) => setFormData({ ...formData, profileImageUrl: value })}
+            >
+              <SelectTrigger className="glass-effect border-white/20 text-white">
+                <SelectValue placeholder="Select an uploaded image" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">No image</SelectItem>
+                {mediaFiles?.filter(file => file.mimeType?.startsWith('image/')).map(file => (
+                  <SelectItem key={file.id} value={file.url}>
+                    {file.originalName}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <Button 
