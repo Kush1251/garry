@@ -181,6 +181,8 @@ export const insertPortfolioItemSchema = createInsertSchema(portfolioItems).omit
   id: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  mediaFileIds: z.array(z.number()).optional().default([]),
 });
 
 export const insertVideoSchema = createInsertSchema(videos).omit({
