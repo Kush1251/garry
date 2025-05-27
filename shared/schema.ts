@@ -137,10 +137,6 @@ export const portfolioItemsRelations = relations(portfolioItems, ({ one }) => ({
     fields: [portfolioItems.userId],
     references: [users.id],
   }),
-  mediaFile: one(mediaFiles, {
-    fields: [portfolioItems.mediaFileId],
-    references: [mediaFiles.id],
-  }),
 }));
 
 export const videosRelations = relations(videos, ({ one }) => ({
