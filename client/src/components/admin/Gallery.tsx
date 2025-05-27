@@ -152,7 +152,8 @@ export default function Gallery() {
       {/* Gallery Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredItems.map((item) => {
-          const mediaFile = getMediaFile(item.mediaFileId);
+          const firstImageId = item.mediaFileIds?.[0];
+          const mediaFile = firstImageId ? getMediaFile(firstImageId) : null;
           
           return (
             <Card key={item.id} className="glass-effect border-white/10 group overflow-hidden">
