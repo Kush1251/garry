@@ -14,9 +14,12 @@ import {
   insertVideoSchema,
 } from "@shared/schema";
 
+// Ensure uploads directory exists
+const uploadsDir = path.resolve(process.cwd(), 'uploads');
+
 // Configure multer for file uploads
 const upload = multer({
-  dest: 'uploads/',
+  dest: uploadsDir,
   limits: {
     fileSize: 50 * 1024 * 1024, // 50MB limit
   },
@@ -37,6 +40,16 @@ const upload = multer({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Ensure uploads directory exists
+  try {
+    await fs.mkdir(uploadsDir, { recursive: true });
+  } catch (error) {
+    console.log('Uploads directory already exists or created successfully');
+  }
+
+  // Serve uploaded files statically
+  app.use('/uploads', express.static(uploadsDir));
+
   // Health check endpoint for self-hosting
   app.get('/api/health', (req, res) => {
     res.json({ 
