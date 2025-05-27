@@ -264,14 +264,249 @@ function HeroEditor({ section, mediaFiles, onSave, isLoading }: SectionEditorPro
 }
 
 function SkillsEditor() {
-  // Skills editor will be implemented as a separate component
-  // for managing the skills table
+  const [isCreateMode, setIsCreateMode] = useState(false);
+  const [editingSkill, setEditingSkill] = useState<any>(null);
+
+  const { data: skills = [], isLoading } = useQuery({
+    queryKey: ["/api/skills"],
+  });
+
+  const createMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const response = await apiRequest('POST', '/api/skills', data);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/skills"] });
+      setIsCreateMode(false);
+      toast({
+        title: "Success",
+        description: "Skill created successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to create skill",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: any }) => {
+      const response = await apiRequest('PUT', `/api/skills/${id}`, data);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/skills"] });
+      setEditingSkill(null);
+      toast({
+        title: "Success",
+        description: "Skill updated successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to update skill",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: async (id: number) => {
+      const response = await apiRequest('DELETE', `/api/skills/${id}`);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/skills"] });
+      toast({
+        title: "Success",
+        description: "Skill deleted successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to delete skill",
+        variant: "destructive",
+      });
+    },
+  });
+
   return (
     <Card className="glass-effect border-white/10">
       <CardContent className="p-6">
-        <p className="text-gray-400">Skills management coming soon...</p>
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-xl font-bold text-white">Skills Management</h3>
+          <Button 
+            onClick={() => setIsCreateMode(true)}
+            className="gradient-primary"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Add Skill
+          </Button>
+        </div>
+
+        {isLoading ? (
+          <div className="text-center py-8">
+            <div className="text-white">Loading skills...</div>
+          </div>
+        ) : skills.length === 0 ? (
+          <div className="text-center py-8">
+            <Star className="w-12 h-12 text-gray-400 mx-auto mb-4 opacity-50" />
+            <p className="text-gray-400 mb-4">No skills added yet</p>
+            <Button 
+              onClick={() => setIsCreateMode(true)}
+              className="gradient-primary"
+            >
+              Add Your First Skill
+            </Button>
+          </div>
+        ) : (
+          <div className="grid gap-4">
+            {skills.map((skill: any) => (
+              <div key={skill.id} className="glass-effect border border-white/10 rounded-lg p-4">
+                <div className="flex justify-between items-start mb-3">
+                  <div className="flex-1">
+                    <h4 className="text-lg font-semibold text-white">{skill.name}</h4>
+                    {skill.description && (
+                      <p className="text-gray-400 text-sm mt-1">{skill.description}</p>
+                    )}
+                  </div>
+                  <div className="flex space-x-2">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => setEditingSkill(skill)}
+                    >
+                      <Edit className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() => deleteMutation.mutate(skill.id)}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+                
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-red-400 font-medium">Level {skill.level}/10</span>
+                </div>
+                
+                <div className="w-full bg-gray-700 rounded-full h-2">
+                  <div 
+                    className="bg-gradient-to-r from-red-500 to-orange-500 h-2 rounded-full transition-all duration-1000"
+                    style={{ width: `${(skill.level / 10) * 100}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Create/Edit Modal */}
+        <Dialog open={isCreateMode || !!editingSkill} onOpenChange={() => {
+          setIsCreateMode(false);
+          setEditingSkill(null);
+        }}>
+          <DialogContent className="glass-effect border-white/20 max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-white">
+                {isCreateMode ? "Add New Skill" : "Edit Skill"}
+              </DialogTitle>
+            </DialogHeader>
+            
+            <SkillForm
+              skill={editingSkill}
+              onSave={(data) => {
+                if (isCreateMode) {
+                  createMutation.mutate(data);
+                } else if (editingSkill) {
+                  updateMutation.mutate({ id: editingSkill.id, data });
+                }
+              }}
+              isLoading={createMutation.isPending || updateMutation.isPending}
+            />
+          </DialogContent>
+        </Dialog>
       </CardContent>
     </Card>
+  );
+}
+
+function SkillForm({ skill, onSave, isLoading }: { 
+  skill: any; 
+  onSave: (data: any) => void; 
+  isLoading: boolean; 
+}) {
+  const [formData, setFormData] = useState({
+    name: skill?.name || "",
+    description: skill?.description || "",
+    level: skill?.level || 5,
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSave(formData);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <Label className="text-white">Skill Name</Label>
+        <Input
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          className="glass-effect border-white/20 text-white"
+          placeholder="e.g., Boxing, Stunt Driving, Sword Fighting"
+          required
+        />
+      </div>
+
+      <div>
+        <Label className="text-white">Description (Optional)</Label>
+        <Textarea
+          value={formData.description}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          className="glass-effect border-white/20 text-white"
+          placeholder="Brief description of your experience..."
+          rows={3}
+        />
+      </div>
+
+      <div>
+        <Label className="text-white">Skill Level: {formData.level}/10</Label>
+        <div className="mt-2">
+          <input
+            type="range"
+            min="1"
+            max="10"
+            value={formData.level}
+            onChange={(e) => setFormData({ ...formData, level: parseInt(e.target.value) })}
+            className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+            style={{
+              background: `linear-gradient(to right, #ef4444 0%, #f97316 ${(formData.level / 10) * 100}%, #374151 ${(formData.level / 10) * 100}%, #374151 100%)`
+            }}
+          />
+        </div>
+        <div className="flex justify-between text-xs text-gray-400 mt-1">
+          <span>Beginner</span>
+          <span>Expert</span>
+        </div>
+      </div>
+
+      <div className="flex space-x-3 pt-4">
+        <Button type="submit" disabled={isLoading} className="gradient-primary flex-1">
+          <Save className="w-4 h-4 mr-2" />
+          {isLoading ? "Saving..." : "Save Skill"}
+        </Button>
+      </div>
+    </form>
   );
 }
 
