@@ -24,7 +24,19 @@ export default function MediaLibrary() {
     mutationFn: async (file: File) => {
       const formData = new FormData();
       formData.append('file', file);
-      const response = await apiRequest('POST', '/api/media', formData);
+      
+      // Use fetch directly for file uploads to avoid JSON headers
+      const response = await fetch('/api/media', {
+        method: 'POST',
+        body: formData,
+        credentials: 'include', // Include session cookies
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Upload failed');
+      }
+      
       return response.json();
     },
     onSuccess: () => {
