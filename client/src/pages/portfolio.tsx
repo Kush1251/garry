@@ -311,19 +311,45 @@ export default function Portfolio() {
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="aspect-video bg-gray-800 relative overflow-hidden">
-                    {video.thumbnailUrl ? (
-                      <img 
-                        src={video.thumbnailUrl}
-                        alt={video.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-800">
-                        <Play className="w-16 h-16 text-red-400" />
-                      </div>
-                    )}
+                    {(() => {
+                      const videoFile = mediaFiles.find(file => file.id === video.mediaFileId);
+                      const thumbnailFile = video.thumbnailId ? mediaFiles.find(file => file.id === video.thumbnailId) : null;
+                      
+                      if (thumbnailFile) {
+                        return (
+                          <img 
+                            src={thumbnailFile.url}
+                            alt={video.title}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          />
+                        );
+                      } else if (videoFile) {
+                        return (
+                          <video
+                            src={videoFile.url}
+                            className="w-full h-full object-cover"
+                            muted
+                          />
+                        );
+                      } else {
+                        return (
+                          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-800">
+                            <Play className="w-16 h-16 text-red-400" />
+                          </div>
+                        );
+                      }
+                    })()}
                     <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <Button size="lg" className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300">
+                      <Button 
+                        size="lg" 
+                        className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300"
+                        onClick={() => {
+                          const videoFile = mediaFiles.find(file => file.id === video.mediaFileId);
+                          if (videoFile) {
+                            window.open(videoFile.url, '_blank');
+                          }
+                        }}
+                      >
                         <Play className="w-6 h-6 mr-2" />
                         Play Video
                       </Button>
