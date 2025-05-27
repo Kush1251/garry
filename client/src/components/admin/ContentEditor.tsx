@@ -184,7 +184,7 @@ function AboutEditor({ section, mediaFiles, onSave, isLoading }: SectionEditorPr
   );
 }
 
-function HeroEditor({ section, onSave, isLoading }: SectionEditorProps) {
+function HeroEditor({ section, mediaFiles, onSave, isLoading }: SectionEditorProps) {
   const [formData, setFormData] = useState({
     title: section?.title || "Hero Section",
     headline: (section?.metadata as any)?.headline || "GARRY BELL",
@@ -229,14 +229,23 @@ function HeroEditor({ section, onSave, isLoading }: SectionEditorProps) {
           </div>
 
           <div>
-            <Label htmlFor="background-image" className="text-white">Background Image URL</Label>
-            <Input
-              id="background-image"
-              value={formData.backgroundImageUrl}
-              onChange={(e) => setFormData({ ...formData, backgroundImageUrl: e.target.value })}
-              className="glass-effect border-white/20 text-white"
-              placeholder="https://example.com/hero-background.jpg"
-            />
+            <Label htmlFor="background-image" className="text-white">Background Image</Label>
+            <Select 
+              value={formData.backgroundImageUrl} 
+              onValueChange={(value) => setFormData({ ...formData, backgroundImageUrl: value === "none" ? "" : value })}
+            >
+              <SelectTrigger className="glass-effect border-white/20 text-white">
+                <SelectValue placeholder="Select a background image" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="none">No background image</SelectItem>
+                {mediaFiles?.filter(file => file.mimeType?.startsWith('image/')).map(file => (
+                  <SelectItem key={file.id} value={file.url}>
+                    {file.originalName}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <Button 
