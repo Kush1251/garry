@@ -3,12 +3,14 @@ import { User, ContentSection, Skill, PortfolioItem, Video, MediaFile } from "@s
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Mail, Phone, MapPin, Globe, Play, ExternalLink, ArrowDown, Star, Award, Target, X } from "lucide-react";
 import { useState, useEffect } from "react";
 
 export default function Portfolio() {
   const [scrollY, setScrollY] = useState(0);
   const [playingVideo, setPlayingVideo] = useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -246,8 +248,9 @@ export default function Portfolio() {
               {portfolioItems.map((item, index) => (
                 <Card 
                   key={item.id} 
-                  className="bg-gradient-to-br from-gray-800/30 to-gray-900/30 border border-red-900/20 overflow-hidden group hover:border-red-500/50 transition-all duration-500 transform hover:scale-105"
+                  className="bg-gradient-to-br from-gray-800/30 to-gray-900/30 border border-red-900/20 overflow-hidden group hover:border-red-500/50 transition-all duration-500 transform hover:scale-105 cursor-pointer"
                   style={{ animationDelay: `${index * 0.1}s` }}
+                  onClick={() => setSelectedProject(item)}
                 >
                   {(() => {
                     const coverImage = mediaFiles.find(file => file.id === item.mediaFileId);
@@ -499,6 +502,74 @@ export default function Portfolio() {
           </p>
         </div>
       </footer>
+
+      {/* Portfolio Gallery Modal */}
+      <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
+        <DialogContent className="max-w-4xl bg-black/95 border-red-900/20">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-white mb-2">
+              {selectedProject?.title}
+            </DialogTitle>
+            {selectedProject?.description && (
+              <p className="text-gray-300">{selectedProject.description}</p>
+            )}
+          </DialogHeader>
+          
+          <div className="mt-6">
+            {selectedProject && (() => {
+              const coverImage = mediaFiles.find(file => file.id === selectedProject.mediaFileId);
+              if (coverImage) {
+                return (
+                  <div className="grid gap-6">
+                    <div className="aspect-video bg-gray-800 rounded-lg overflow-hidden">
+                      <img 
+                        src={coverImage.url}
+                        alt={selectedProject.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h4 className="text-lg font-semibold text-white mb-2">Project Images</h4>
+                        <p className="text-gray-400 text-sm">Click to view full size</p>
+                      </div>
+                      <Button
+                        variant="outline"
+                        onClick={() => setSelectedProject(null)}
+                        className="border-red-500 text-red-400 hover:bg-red-500 hover:text-white"
+                      >
+                        <X className="w-4 h-4 mr-2" />
+                        Close
+                      </Button>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      <div 
+                        className="aspect-square bg-gray-800 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300"
+                        onClick={() => window.open(coverImage.url, '_blank')}
+                      >
+                        <img 
+                          src={coverImage.url}
+                          alt={`${selectedProject.title} - Image 1`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                );
+              } else {
+                return (
+                  <div className="text-center py-12">
+                    <Star className="w-16 h-16 text-gray-400 mx-auto mb-4 opacity-50" />
+                    <p className="text-gray-400">No images available for this project</p>
+                  </div>
+                );
+              }
+            })()}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
