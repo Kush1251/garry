@@ -111,7 +111,7 @@ function AboutEditor({ section, mediaFiles, onSave, isLoading }: SectionEditorPr
   const [formData, setFormData] = useState({
     title: section?.title || "About Me",
     content: section?.content || "",
-    profileImageUrl: section?.metadata?.profileImageUrl || "",
+    profileImageUrl: (section?.metadata as any)?.profileImageUrl || "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -187,9 +187,9 @@ function AboutEditor({ section, mediaFiles, onSave, isLoading }: SectionEditorPr
 function HeroEditor({ section, onSave, isLoading }: SectionEditorProps) {
   const [formData, setFormData] = useState({
     title: section?.title || "Hero Section",
-    headline: section?.metadata?.headline || "GARRY BELL",
-    subtitle: section?.metadata?.subtitle || "Fighter & Stunt Performer",
-    backgroundImageUrl: section?.metadata?.backgroundImageUrl || "",
+    headline: (section?.metadata as any)?.headline || "GARRY BELL",
+    subtitle: (section?.metadata as any)?.subtitle || "Fighter & Stunt Performer",
+    backgroundImageUrl: (section?.metadata as any)?.backgroundImageUrl || "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -268,10 +268,10 @@ function SkillsEditor() {
 function ContactEditor({ section, onSave, isLoading }: SectionEditorProps) {
   const [formData, setFormData] = useState({
     title: section?.title || "Contact Information",
-    email: section?.metadata?.email || "",
-    phone: section?.metadata?.phone || "",
-    location: section?.metadata?.location || "",
-    website: section?.metadata?.website || "",
+    email: (section?.metadata as any)?.email || "",
+    phone: (section?.metadata as any)?.phone || "",
+    location: (section?.metadata as any)?.location || "",
+    website: (section?.metadata as any)?.website || "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
