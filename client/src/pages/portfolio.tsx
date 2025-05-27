@@ -249,15 +249,29 @@ export default function Portfolio() {
                   className="bg-gradient-to-br from-gray-800/30 to-gray-900/30 border border-red-900/20 overflow-hidden group hover:border-red-500/50 transition-all duration-500 transform hover:scale-105"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  {item.imageUrl && (
-                    <div className="aspect-video bg-gray-800 overflow-hidden">
-                      <img 
-                        src={item.imageUrl}
-                        alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                    </div>
-                  )}
+                  {(() => {
+                    const coverImage = mediaFiles.find(file => file.id === item.mediaFileId);
+                    if (coverImage) {
+                      return (
+                        <div className="aspect-video bg-gray-800 overflow-hidden">
+                          <img 
+                            src={coverImage.url}
+                            alt={item.title}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          />
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div className="aspect-video bg-gray-800 flex items-center justify-center">
+                          <div className="text-gray-400 text-center">
+                            <Star className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                            <p className="text-sm">No Image</p>
+                          </div>
+                        </div>
+                      );
+                    }
+                  })()}
                   <CardContent className="p-8">
                     <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
                     {item.description && (
