@@ -1,153 +1,228 @@
 import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent } from "@/components/ui/card";
+import { User, ContentSection, Skill, PortfolioItem, Video, MediaFile } from "@shared/schema";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Globe, Play } from "lucide-react";
-import type { ContentSection, MediaFile, PortfolioItem, Video, Skill } from "@shared/schema";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Mail, Phone, MapPin, Globe, Play, ExternalLink, ArrowDown, Star, Award, Target } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function Portfolio() {
-  const { data: contentSections } = useQuery<ContentSection[]>({
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const { data: user } = useQuery<User>({
+    queryKey: ["/api/auth/user"],
+  });
+
+  const { data: contentSections = [] } = useQuery<ContentSection[]>({
     queryKey: ["/api/content"],
-    retry: false,
   });
 
-  const { data: mediaFiles } = useQuery<MediaFile[]>({
-    queryKey: ["/api/media"],
-    retry: false,
-  });
-
-  const { data: portfolioItems } = useQuery<PortfolioItem[]>({
-    queryKey: ["/api/portfolio"],
-    retry: false,
-  });
-
-  const { data: videos } = useQuery<Video[]>({
-    queryKey: ["/api/videos"],
-    retry: false,
-  });
-
-  const { data: skills } = useQuery<Skill[]>({
+  const { data: skills = [] } = useQuery<Skill[]>({
     queryKey: ["/api/skills"],
-    retry: false,
   });
 
-  const getContentSection = (key: string) => {
-    return contentSections?.find(section => section.key === key);
+  const { data: portfolioItems = [] } = useQuery<PortfolioItem[]>({
+    queryKey: ["/api/portfolio"],
+  });
+
+  const { data: videos = [] } = useQuery<Video[]>({
+    queryKey: ["/api/videos"],
+  });
+
+  const { data: mediaFiles = [] } = useQuery<MediaFile[]>({
+    queryKey: ["/api/media"],
+  });
+
+  // Helper function to get section by key
+  const getSection = (key: string) => {
+    return contentSections.find(section => section.key === key);
   };
 
-  const getMediaFile = (mediaFileId: number | null) => {
-    if (!mediaFileId) return null;
-    return mediaFiles?.find(file => file.id === mediaFileId);
+  const heroSection = getSection("hero");
+  const aboutSection = getSection("about");
+  const contactSection = getSection("contact");
+
+  const scrollToSection = (sectionId: string) => {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  const heroSection = getContentSection("hero");
-  const aboutSection = getContentSection("about");
-  const contactSection = getContentSection("contact");
-
-  const publicVideos = videos?.filter(video => video.visibility === "public") || [];
-  const featuredVideo = publicVideos[0];
 
   return (
-    <div className="min-h-screen" style={{ background: "linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)" }}>
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-black/90 backdrop-blur-sm z-50 px-6 py-4">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <div className="text-xl font-bold text-primary">
-            {heroSection?.metadata?.headline || "GARRY BELL"}
-          </div>
-          <div className="hidden md:flex space-x-6">
-            <a href="#about" className="text-white hover:text-primary transition-colors">About</a>
-            <a href="#skills" className="text-white hover:text-primary transition-colors">Skills</a>
-            <a href="#portfolio" className="text-white hover:text-primary transition-colors">Portfolio</a>
-            <a href="#videos" className="text-white hover:text-primary transition-colors">Videos</a>
-            <a href="#contact" className="text-white hover:text-primary transition-colors">Contact</a>
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-red-900/20">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
+              GARRY BELL
+            </h1>
+            <div className="hidden md:flex space-x-8">
+              <button onClick={() => scrollToSection('about')} className="hover:text-red-400 transition-colors">About</button>
+              <button onClick={() => scrollToSection('skills')} className="hover:text-red-400 transition-colors">Skills</button>
+              <button onClick={() => scrollToSection('portfolio')} className="hover:text-red-400 transition-colors">Portfolio</button>
+              <button onClick={() => scrollToSection('videos')} className="hover:text-red-400 transition-colors">Videos</button>
+              <button onClick={() => scrollToSection('contact')} className="hover:text-red-400 transition-colors">Contact</button>
+            </div>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center text-center overflow-hidden">
-        {heroSection?.metadata?.backgroundImageUrl && (
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 via-black to-orange-900/20" />
           <div 
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${heroSection.metadata.backgroundImageUrl})` }}
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage: `radial-gradient(circle at ${50 + scrollY * 0.01}% ${50 + scrollY * 0.02}%, rgba(239, 68, 68, 0.1) 0%, transparent 50%)`,
+            }}
+          />
+        </div>
+        
+        {/* Hero Background Image */}
+        {(heroSection?.metadata as any)?.backgroundImageUrl && (
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ 
+              backgroundImage: `url(${(heroSection.metadata as any).backgroundImageUrl})`,
+              transform: `translateY(${scrollY * 0.5}px)`,
+            }}
           />
         )}
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 px-6">
-          <h1 className="text-6xl md:text-8xl font-bold text-white mb-4 animate-fade-in">
-            {heroSection?.metadata?.headline || "GARRY BELL"}
-          </h1>
-          <p className="text-xl md:text-2xl text-primary mb-8 animate-fade-in-delay">
-            {heroSection?.metadata?.subtitle || "Fighter & Stunt Performer"}
-          </p>
-          <Button 
-            className="gradient-primary px-8 py-3 text-lg rounded-full animate-fade-in-delay-2"
-            onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            Discover My Work
-          </Button>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center text-primary mb-16">
-            {aboutSection?.title || "About Me"}
-          </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1">
-              <div className="text-lg leading-relaxed text-gray-300 space-y-6">
-                {aboutSection?.content ? (
-                  aboutSection.content.split('\n').map((paragraph, index) => (
-                    <p key={index}>{paragraph}</p>
-                  ))
-                ) : (
-                  <p>Professional fighter and stunt performer bringing authentic combat to film and television.</p>
-                )}
-              </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
+        
+        <div className="relative z-10 text-center max-w-6xl mx-auto px-6">
+          <div className="animate-fade-in">
+            <h1 className="text-7xl md:text-9xl font-black mb-6 tracking-wider">
+              <span className="bg-gradient-to-r from-red-500 via-orange-500 to-red-600 bg-clip-text text-transparent drop-shadow-2xl">
+                {(heroSection?.metadata as any)?.headline || "GARRY BELL"}
+              </span>
+            </h1>
+            <p className="text-2xl md:text-4xl mb-8 font-light opacity-90 tracking-wide">
+              {(heroSection?.metadata as any)?.subtitle || "Fighter & Stunt Performer"}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button 
+                size="lg" 
+                onClick={() => scrollToSection('portfolio')}
+                className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-12 py-4 text-xl font-semibold rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
+              >
+                View My Work
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => scrollToSection('contact')}
+                className="border-2 border-red-500 text-red-400 hover:bg-red-500 hover:text-white px-12 py-4 text-xl font-semibold rounded-full transition-all duration-300"
+              >
+                Get In Touch
+              </Button>
             </div>
-            <div className="order-1 lg:order-2 flex justify-center">
-              {aboutSection?.metadata?.profileImageUrl ? (
-                <img
-                  src={aboutSection.metadata.profileImageUrl}
-                  alt="Profile"
-                  className="w-80 h-96 object-cover rounded-2xl shadow-2xl"
-                />
-              ) : (
-                <div className="w-80 h-96 bg-gray-800 rounded-2xl flex items-center justify-center">
-                  <p className="text-gray-400">Profile image</p>
-                </div>
-              )}
-            </div>
+          </div>
+          
+          {/* Scroll Indicator */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <ArrowDown className="w-8 h-8 text-red-400" />
           </div>
         </div>
       </section>
 
+      {/* About Section */}
+      {aboutSection && (
+        <section id="about" className="py-24 px-6 relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 to-black" />
+          <div className="max-w-7xl mx-auto relative z-10">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="space-y-8">
+                <div>
+                  <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
+                    {aboutSection.title}
+                  </h2>
+                  <div className="w-24 h-1 bg-gradient-to-r from-red-500 to-orange-500 mb-8" />
+                </div>
+                <p className="text-xl leading-relaxed text-gray-300">
+                  {aboutSection.content}
+                </p>
+                <div className="grid grid-cols-3 gap-8 pt-8">
+                  <div className="text-center">
+                    <Star className="w-8 h-8 text-red-400 mx-auto mb-2" />
+                    <h3 className="text-2xl font-bold text-white">10+</h3>
+                    <p className="text-gray-400">Years Experience</p>
+                  </div>
+                  <div className="text-center">
+                    <Award className="w-8 h-8 text-red-400 mx-auto mb-2" />
+                    <h3 className="text-2xl font-bold text-white">50+</h3>
+                    <p className="text-gray-400">Projects</p>
+                  </div>
+                  <div className="text-center">
+                    <Target className="w-8 h-8 text-red-400 mx-auto mb-2" />
+                    <h3 className="text-2xl font-bold text-white">100%</h3>
+                    <p className="text-gray-400">Dedication</p>
+                  </div>
+                </div>
+              </div>
+              
+              {(aboutSection.metadata as any)?.profileImageUrl && (
+                <div className="flex justify-center lg:justify-end">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl transform rotate-6" />
+                    <img 
+                      src={(aboutSection.metadata as any).profileImageUrl}
+                      alt="Profile"
+                      className="relative w-96 h-96 object-cover rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Skills Section */}
-      {skills && skills.length > 0 && (
-        <section id="skills" className="py-20 px-6 bg-black/30">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-primary mb-16">Skills</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {skills.map((skill) => (
-                <Card key={skill.id} className="glass-effect border-white/10 text-center p-6">
-                  <CardContent className="p-0">
-                    <div className="w-24 h-24 mx-auto mb-4 rounded-full border-4 border-primary flex items-center justify-center relative">
-                      <div 
-                        className="absolute inset-0 rounded-full"
-                        style={{
-                          background: `conic-gradient(hsl(var(--primary)) 0% ${skill.level}%, rgba(255,255,255,0.1) ${skill.level}% 100%)`
-                        }}
-                      />
-                      <div className="w-16 h-16 bg-background rounded-full flex items-center justify-center relative z-10">
-                        <span className="text-sm font-bold text-primary">{skill.level}%</span>
+      {skills.length > 0 && (
+        <section id="skills" className="py-24 px-6 bg-gradient-to-b from-gray-900/50 to-black">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
+                Skills & Expertise
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-red-500 to-orange-500 mx-auto" />
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {skills.map((skill, index) => (
+                <Card 
+                  key={skill.id} 
+                  className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-red-900/20 backdrop-blur-sm hover:border-red-500/50 transition-all duration-300 transform hover:scale-105"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <CardContent className="p-8">
+                    <h3 className="text-2xl font-bold text-white mb-4">{skill.name}</h3>
+                    {skill.description && (
+                      <p className="text-gray-300 mb-6 leading-relaxed">{skill.description}</p>
+                    )}
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <Badge className="bg-gradient-to-r from-red-600 to-orange-600 text-white px-4 py-1">
+                          {skill.category}
+                        </Badge>
+                        <span className="text-red-400 font-semibold">
+                          Level {skill.level}/10
+                        </span>
+                      </div>
+                      <div className="w-full bg-gray-700 rounded-full h-2">
+                        <div 
+                          className="bg-gradient-to-r from-red-500 to-orange-500 h-2 rounded-full transition-all duration-1000"
+                          style={{ width: `${(skill.level / 10) * 100}%` }}
+                        />
                       </div>
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-2">{skill.name}</h3>
-                    {skill.description && (
-                      <p className="text-gray-400 text-sm">{skill.description}</p>
-                    )}
                   </CardContent>
                 </Card>
               ))}
@@ -157,140 +232,211 @@ export default function Portfolio() {
       )}
 
       {/* Portfolio Gallery */}
-      {portfolioItems && portfolioItems.length > 0 && (
-        <section id="portfolio" className="py-20 px-6">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-primary mb-16">Portfolio</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {portfolioItems.map((item) => {
-                const mediaFile = getMediaFile(item.mediaFileId);
-                return (
-                  <Card key={item.id} className="glass-effect border-white/10 overflow-hidden group">
-                    <div className="aspect-video relative">
-                      {mediaFile ? (
-                        <img
-                          src={mediaFile.url}
-                          alt={item.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-                          <p className="text-gray-400">No image</p>
-                        </div>
-                      )}
-                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <div className="text-center text-white">
-                          <h3 className="text-lg font-bold mb-2">{item.title}</h3>
-                          {item.category && (
-                            <span className="px-3 py-1 bg-primary rounded-full text-sm capitalize">
-                              {item.category}
-                            </span>
-                          )}
-                        </div>
-                      </div>
+      {portfolioItems.length > 0 && (
+        <section id="portfolio" className="py-24 px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
+                Portfolio
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-red-500 to-orange-500 mx-auto" />
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {portfolioItems.map((item, index) => (
+                <Card 
+                  key={item.id} 
+                  className="bg-gradient-to-br from-gray-800/30 to-gray-900/30 border border-red-900/20 overflow-hidden group hover:border-red-500/50 transition-all duration-500 transform hover:scale-105"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  {item.imageUrl && (
+                    <div className="aspect-video bg-gray-800 overflow-hidden">
+                      <img 
+                        src={item.imageUrl}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
                     </div>
-                    <CardContent className="p-4">
-                      <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-                      {item.description && (
-                        <p className="text-gray-400 text-sm">{item.description}</p>
-                      )}
-                    </CardContent>
-                  </Card>
-                );
-              })}
+                  )}
+                  <CardContent className="p-8">
+                    <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
+                    {item.description && (
+                      <p className="text-gray-300 mb-6 leading-relaxed">{item.description}</p>
+                    )}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {item.tags?.map((tag, tagIndex) => (
+                        <Badge 
+                          key={tagIndex} 
+                          variant="outline" 
+                          className="border-red-500/50 text-red-400 hover:bg-red-500/20 transition-colors"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                    {item.projectUrl && (
+                      <Button 
+                        variant="outline" 
+                        className="border-red-500 text-red-400 hover:bg-red-500 hover:text-white transition-all duration-300 w-full"
+                        asChild
+                      >
+                        <a href={item.projectUrl} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          View Project
+                        </a>
+                      </Button>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
       )}
 
-      {/* Video Reel */}
-      {featuredVideo && (
-        <section id="videos" className="py-20 px-6 bg-black/30">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-primary mb-16">Video Reel</h2>
-            <div className="max-w-4xl mx-auto">
-              <Card className="glass-effect border-white/10 overflow-hidden">
-                <div className="aspect-video relative">
-                  {(() => {
-                    const videoFile = getMediaFile(featuredVideo.mediaFileId);
-                    const thumbnailFile = getMediaFile(featuredVideo.thumbnailId);
-                    
-                    if (videoFile) {
-                      return (
-                        <video
-                          src={videoFile.url}
-                          poster={thumbnailFile?.url}
-                          controls
-                          className="w-full h-full object-cover"
-                        />
-                      );
-                    }
-                    return (
-                      <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-                        <Play className="w-16 h-16 text-gray-400" />
+      {/* Videos Section */}
+      {videos.length > 0 && (
+        <section id="videos" className="py-24 px-6 bg-gradient-to-b from-gray-900/50 to-black">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
+                Video Showcase
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-red-500 to-orange-500 mx-auto" />
+            </div>
+            <div className="grid md:grid-cols-2 gap-8">
+              {videos.map((video, index) => (
+                <Card 
+                  key={video.id} 
+                  className="bg-gradient-to-br from-gray-800/30 to-gray-900/30 border border-red-900/20 overflow-hidden group hover:border-red-500/50 transition-all duration-500"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="aspect-video bg-gray-800 relative overflow-hidden">
+                    {video.thumbnailUrl ? (
+                      <img 
+                        src={video.thumbnailUrl}
+                        alt={video.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-800">
+                        <Play className="w-16 h-16 text-red-400" />
                       </div>
-                    );
-                  })()}
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">{featuredVideo.title}</h3>
-                  {featuredVideo.description && (
-                    <p className="text-gray-400">{featuredVideo.description}</p>
-                  )}
-                </CardContent>
-              </Card>
+                    )}
+                    <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <Button size="lg" className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300">
+                        <Play className="w-6 h-6 mr-2" />
+                        Play Video
+                      </Button>
+                    </div>
+                  </div>
+                  <CardContent className="p-8">
+                    <h3 className="text-2xl font-bold text-white mb-4">{video.title}</h3>
+                    {video.description && (
+                      <p className="text-gray-300 leading-relaxed">{video.description}</p>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
       )}
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-6">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-16">
-            {contactSection?.title || "Get In Touch"}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            {contactSection?.metadata?.email && (
-              <Card className="glass-effect border-white/10 p-6 text-center">
-                <Mail className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h3 className="text-white font-bold mb-2">Email</h3>
-                <p className="text-gray-400">{contactSection.metadata.email}</p>
-              </Card>
-            )}
-            {contactSection?.metadata?.phone && (
-              <Card className="glass-effect border-white/10 p-6 text-center">
-                <Phone className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h3 className="text-white font-bold mb-2">Phone</h3>
-                <p className="text-gray-400">{contactSection.metadata.phone}</p>
-              </Card>
-            )}
-            {contactSection?.metadata?.location && (
-              <Card className="glass-effect border-white/10 p-6 text-center">
-                <MapPin className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h3 className="text-white font-bold mb-2">Location</h3>
-                <p className="text-gray-400">{contactSection.metadata.location}</p>
-              </Card>
-            )}
-            {contactSection?.metadata?.website && (
-              <Card className="glass-effect border-white/10 p-6 text-center">
-                <Globe className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h3 className="text-white font-bold mb-2">Website</h3>
-                <p className="text-gray-400">{contactSection.metadata.website}</p>
-              </Card>
-            )}
+      {contactSection && (
+        <section id="contact" className="py-24 px-6 relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-black to-gray-900" />
+          <div className="max-w-6xl mx-auto relative z-10">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
+                Get In Touch
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-red-500 to-orange-500 mx-auto mb-8" />
+              <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                Ready to work together? Let's create something amazing.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {(contactSection.metadata as any)?.email && (
+                <Card className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-red-900/20 hover:border-red-500/50 transition-all duration-300 transform hover:scale-105">
+                  <CardContent className="p-8 text-center">
+                    <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Mail className="w-8 h-8 text-white" />
+                    </div>
+                    <p className="text-white font-bold text-lg mb-4">Email</p>
+                    <a 
+                      href={`mailto:${(contactSection.metadata as any).email}`}
+                      className="text-gray-300 hover:text-red-400 transition-colors break-all"
+                    >
+                      {(contactSection.metadata as any).email}
+                    </a>
+                  </CardContent>
+                </Card>
+              )}
+              
+              {(contactSection.metadata as any)?.phone && (
+                <Card className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-red-900/20 hover:border-red-500/50 transition-all duration-300 transform hover:scale-105">
+                  <CardContent className="p-8 text-center">
+                    <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Phone className="w-8 h-8 text-white" />
+                    </div>
+                    <p className="text-white font-bold text-lg mb-4">Phone</p>
+                    <a 
+                      href={`tel:${(contactSection.metadata as any).phone}`}
+                      className="text-gray-300 hover:text-red-400 transition-colors"
+                    >
+                      {(contactSection.metadata as any).phone}
+                    </a>
+                  </CardContent>
+                </Card>
+              )}
+              
+              {(contactSection.metadata as any)?.location && (
+                <Card className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-red-900/20 hover:border-red-500/50 transition-all duration-300 transform hover:scale-105">
+                  <CardContent className="p-8 text-center">
+                    <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <MapPin className="w-8 h-8 text-white" />
+                    </div>
+                    <p className="text-white font-bold text-lg mb-4">Location</p>
+                    <p className="text-gray-300">{(contactSection.metadata as any).location}</p>
+                  </CardContent>
+                </Card>
+              )}
+              
+              {(contactSection.metadata as any)?.website && (
+                <Card className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-red-900/20 hover:border-red-500/50 transition-all duration-300 transform hover:scale-105">
+                  <CardContent className="p-8 text-center">
+                    <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Globe className="w-8 h-8 text-white" />
+                    </div>
+                    <p className="text-white font-bold text-lg mb-4">Website</p>
+                    <a 
+                      href={(contactSection.metadata as any).website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-300 hover:text-red-400 transition-colors break-all"
+                    >
+                      Visit Website
+                    </a>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
           </div>
-          <Button className="gradient-primary px-8 py-3 text-lg rounded-full">
-            Start a Conversation
-          </Button>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-white/10">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-gray-400">
-            © 2024 {heroSection?.metadata?.headline || "Garry Bell"}. All rights reserved.
+      <footer className="bg-black py-12 px-6 text-center border-t border-red-900/20">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
+            GARRY BELL
+          </h3>
+          <p className="text-gray-400 mb-8">Fighter & Stunt Performer</p>
+          <div className="w-24 h-1 bg-gradient-to-r from-red-500 to-orange-500 mx-auto mb-8" />
+          <p className="text-gray-500">
+            © 2024 {user?.firstName} {user?.lastName}. All rights reserved.
           </p>
         </div>
       </footer>
