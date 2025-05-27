@@ -251,8 +251,7 @@ function PortfolioItemForm({ item, mediaFiles, onSave, isLoading }: PortfolioIte
     title: item?.title || "",
     description: item?.description || "",
     category: item?.category || "action",
-    mediaFileId: item?.mediaFileId || null,
-    selectedImages: [] as number[],
+    mediaFileIds: item?.mediaFileIds || [],
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -299,40 +298,21 @@ function PortfolioItemForm({ item, mediaFiles, onSave, isLoading }: PortfolioIte
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-white mb-2">Cover Image</label>
-        <Select 
-          value={formData.mediaFileId?.toString() || ""} 
-          onValueChange={(value) => setFormData({ ...formData, mediaFileId: value ? parseInt(value) : null })}
-        >
-          <SelectTrigger className="glass-effect border-white/20 text-white">
-            <SelectValue placeholder="Select a cover image" />
-          </SelectTrigger>
-          <SelectContent>
-            {imageFiles.map(file => (
-              <SelectItem key={file.id} value={file.id.toString()}>
-                {file.originalName}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-
-      <div>
         <label className="block text-sm font-medium text-white mb-4">Project Gallery (Select Multiple Images)</label>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-64 overflow-y-auto p-4 glass-effect border border-white/20 rounded-lg">
           {imageFiles.map(file => (
             <div key={file.id} className="relative">
               <div 
                 className={`aspect-square rounded-lg overflow-hidden cursor-pointer border-2 transition-all ${
-                  formData.selectedImages.includes(file.id) 
+                  formData.mediaFileIds.includes(file.id) 
                     ? 'border-red-500 ring-2 ring-red-500/50' 
                     : 'border-white/20 hover:border-white/40'
                 }`}
                 onClick={() => {
-                  const newSelected = formData.selectedImages.includes(file.id)
-                    ? formData.selectedImages.filter(id => id !== file.id)
-                    : [...formData.selectedImages, file.id];
-                  setFormData({ ...formData, selectedImages: newSelected });
+                  const newSelected = formData.mediaFileIds.includes(file.id)
+                    ? formData.mediaFileIds.filter(id => id !== file.id)
+                    : [...formData.mediaFileIds, file.id];
+                  setFormData({ ...formData, mediaFileIds: newSelected });
                 }}
               >
                 <img 
@@ -340,10 +320,10 @@ function PortfolioItemForm({ item, mediaFiles, onSave, isLoading }: PortfolioIte
                   alt={file.originalName}
                   className="w-full h-full object-cover"
                 />
-                {formData.selectedImages.includes(file.id) && (
+                {formData.mediaFileIds.includes(file.id) && (
                   <div className="absolute inset-0 bg-red-500/20 flex items-center justify-center">
                     <div className="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
-                      {formData.selectedImages.indexOf(file.id) + 1}
+                      {formData.mediaFileIds.indexOf(file.id) + 1}
                     </div>
                   </div>
                 )}

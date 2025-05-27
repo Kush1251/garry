@@ -85,7 +85,7 @@ export const portfolioItems = pgTable("portfolio_items", {
   title: varchar("title").notNull(),
   description: text("description"),
   category: varchar("category"), // 'action', 'fights', 'stunts'
-  mediaFileId: integer("media_file_id").references(() => mediaFiles.id),
+  mediaFileIds: jsonb("media_file_ids").$type<number[]>().default([]), // Array of media file IDs
   order: integer("order").default(0),
   isPublished: boolean("is_published").default(true),
   userId: varchar("user_id").references(() => users.id),
