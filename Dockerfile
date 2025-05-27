@@ -21,8 +21,8 @@ COPY postcss.config.js ./
 COPY components.json ./
 COPY drizzle.config.ts ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install dependencies (including dev dependencies needed for build)
+RUN npm ci
 
 # Copy application code
 COPY client/ ./client/
