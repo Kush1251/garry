@@ -3,11 +3,12 @@ import { User, ContentSection, Skill, PortfolioItem, Video, MediaFile } from "@s
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, MapPin, Globe, Play, ExternalLink, ArrowDown, Star, Award, Target } from "lucide-react";
+import { Mail, Phone, MapPin, Globe, Play, ExternalLink, ArrowDown, Star, Award, Target, X } from "lucide-react";
 import { useState, useEffect } from "react";
 
 export default function Portfolio() {
   const [scrollY, setScrollY] = useState(0);
+  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -314,8 +315,29 @@ export default function Portfolio() {
                     {(() => {
                       const videoFile = mediaFiles.find(file => file.id === video.mediaFileId);
                       const thumbnailFile = video.thumbnailId ? mediaFiles.find(file => file.id === video.thumbnailId) : null;
+                      const isPlaying = playingVideo === video.id;
                       
-                      if (thumbnailFile) {
+                      if (isPlaying && videoFile) {
+                        return (
+                          <div className="relative w-full h-full">
+                            <video
+                              src={videoFile.url}
+                              className="w-full h-full object-cover"
+                              controls
+                              autoPlay
+                              onEnded={() => setPlayingVideo(null)}
+                            />
+                            <Button
+                              size="sm"
+                              variant="secondary"
+                              className="absolute top-2 right-2 bg-black/70 hover:bg-black/90"
+                              onClick={() => setPlayingVideo(null)}
+                            >
+                              <X className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        );
+                      } else if (thumbnailFile) {
                         return (
                           <img 
                             src={thumbnailFile.url}
@@ -339,21 +361,18 @@ export default function Portfolio() {
                         );
                       }
                     })()}
-                    <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <Button 
-                        size="lg" 
-                        className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300"
-                        onClick={() => {
-                          const videoFile = mediaFiles.find(file => file.id === video.mediaFileId);
-                          if (videoFile) {
-                            window.open(videoFile.url, '_blank');
-                          }
-                        }}
-                      >
-                        <Play className="w-6 h-6 mr-2" />
-                        Play Video
-                      </Button>
-                    </div>
+                    {playingVideo !== video.id && (
+                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                        <Button 
+                          size="lg" 
+                          className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300"
+                          onClick={() => setPlayingVideo(video.id)}
+                        >
+                          <Play className="w-6 h-6 mr-2" />
+                          Play Video
+                        </Button>
+                      </div>
+                    )}
                   </div>
                   <CardContent className="p-8">
                     <h3 className="text-2xl font-bold text-white mb-4">{video.title}</h3>
