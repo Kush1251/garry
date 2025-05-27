@@ -26,6 +26,7 @@ export default function Header({ title, onMenuClick }: HeaderProps) {
           <Button
             variant="outline"
             className="glass-effect border-white/20 text-white hover:bg-white/10"
+            onClick={() => window.open('/portfolio', '_blank')}
           >
             <Eye className="w-4 h-4 mr-2" />
             Preview Site
